@@ -1,0 +1,33 @@
+# Rust / Cargo build artifacts
+contracts/target/
+contracts/Cargo.lock
+
+# Node.js dependencies and build output
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Environment files (containing secrets or local overrides)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
+
+# IDE & Editor configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

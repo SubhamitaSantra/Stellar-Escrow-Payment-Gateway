@@ -2,6 +2,15 @@
 
 The Stellar Escrow Payment Gateway is a secure, decentralized, two-party escrow payment application built on the Stellar Soroban smart contract network. It allows a buyer to deposit XLM into a trustless escrow contract. The funds remain securely locked inside the contract and can only be released to the seller once the buyer explicitly confirms delivery, or claimed by the seller if a customizable dispute timeout window has passed without the buyer raising a dispute. If the buyer is unsatisfied or a dispute arises before the timeout expires, the buyer can raise a dispute, which automatically triggers a refund to the buyer.
 
+---
+
+> [!IMPORTANT]
+> **Live Deployed Contract Address (Stellar Testnet)**:
+> * **Contract ID**: `CCKBEDV7QM7U7D2OSWZJXWMZEQ4KEZQSHSB6VJS52CYEKM5ZI6YPCKS3`
+> * **Stellar Expert Testnet Explorer**: [https://stellar.expert/explorer/testnet/contract/CCKBEDV7QM7U7D2OSWZJXWMZEQ4KEZQSHSB6VJS52CYEKM5ZI6YPCKS3](https://stellar.expert/explorer/testnet/contract/CCKBEDV7QM7U7D2OSWZJXWMZEQ4KEZQSHSB6VJS52CYEKM5ZI6YPCKS3)
+
+---
+
 ## Tech Stack
 
 - **Smart Contract**: Rust & Soroban SDK (`v21.0.0`)
@@ -83,14 +92,19 @@ To deploy the contract, you will need a funded Stellar Testnet account.
 
 To deploy the compiled Wasm bytecode onto the Stellar Testnet:
 
-1. Execute the deploy command inside the `contracts` directory:
+1. Optimize the compiled WASM to satisfy Soroban validator checks:
+   ```bash
+   stellar contract optimize --wasm target/wasm32-unknown-unknown/release/stellar_escrow.wasm
+   ```
+2. Execute the deploy command inside the `contracts` directory:
    ```bash
    stellar contract deploy \
-     --wasm target/wasm32-unknown-unknown/release/stellar_escrow.wasm \
+     --wasm target/wasm32-unknown-unknown/release/stellar_escrow.optimized.wasm \
      --source my-key \
      --network testnet
    ```
-2. **Copy the returned Contract ID** (e.g. `CDLZFC...`). You will need to paste this into your environment variables in **Step 5**.
+3. **Capture the returned Contract ID**:
+   * For this project, the contract is already successfully deployed on Testnet at: `CCKBEDV7QM7U7D2OSWZJXWMZEQ4KEZQSHSB6VJS52CYEKM5ZI6YPCKS3`
 
 ---
 
@@ -113,9 +127,9 @@ To deploy the compiled Wasm bytecode onto the Stellar Testnet:
    ```bash
    cp .env.example .env.local
    ```
-2. Open `frontend/.env.local` and paste your deployed Contract ID from **Step 3** into:
+2. Open `frontend/.env.local` and paste the deployed Contract ID:
    ```env
-   NEXT_PUBLIC_CONTRACT_ID=YOUR_DEPLOYED_CONTRACT_ID
+   NEXT_PUBLIC_CONTRACT_ID=CCKBEDV7QM7U7D2OSWZJXWMZEQ4KEZQSHSB6VJS52CYEKM5ZI6YPCKS3
    ```
 
 ---
